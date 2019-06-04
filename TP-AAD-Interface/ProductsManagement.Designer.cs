@@ -45,7 +45,7 @@
             // 
             this.buttonMainMenu.Location = new System.Drawing.Point(3, 3);
             this.buttonMainMenu.Name = "buttonMainMenu";
-            this.buttonMainMenu.Size = new System.Drawing.Size(101, 35);
+            this.buttonMainMenu.Size = new System.Drawing.Size(100, 35);
             this.buttonMainMenu.TabIndex = 1;
             this.buttonMainMenu.Text = "Main Menu";
             this.buttonMainMenu.UseVisualStyleBackColor = true;

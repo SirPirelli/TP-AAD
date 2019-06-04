@@ -15,6 +15,23 @@ namespace TP_AAD_Interface
         public ProductsManagement()
         {
             InitializeComponent();
+
+            buttonMainMenu.Click += new EventHandler(ButtonClick);
+        }
+
+        private void ButtonClick(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+
+            switch(button.Name)
+            {
+                case "buttonMainMenu":
+                    Program.StartForm("MainMenu");
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

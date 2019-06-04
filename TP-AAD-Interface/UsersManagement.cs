@@ -10,7 +10,11 @@ namespace TP_AAD_Interface
         {
             InitializeComponent();
 
+            buttonMainMenu.Click += new EventHandler(ButtonClick);
+            buttonRegisterUser.Click += new EventHandler(ButtonClick);
+
             FillUsersTable();
+
 
         }
 
@@ -33,5 +37,30 @@ namespace TP_AAD_Interface
                 }
             }
         }
+
+        private void ButtonClick(object sender, EventArgs e)
+        {
+            Button but = sender as Button;
+
+            switch(but.Name)
+            {
+                case "buttonMainMenu":
+                    Program.StartForm("MainMenu");
+                    break;
+
+                case "buttonRegisterUser":
+                    RegisterUser registerUser = new RegisterUser(this);
+                    registerUser.Show();
+                    this.Enabled = false;
+                    break;
+
+                default:
+                    break;
+            }
+
+
+        }
+
+        
     }
 }

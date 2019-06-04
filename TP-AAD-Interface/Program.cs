@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TP_AAD_Interface
@@ -46,7 +43,15 @@ namespace TP_AAD_Interface
                     activeForm = usersManagement;
                     break;
 
+                case "ProductsManagement":
+                    ProductsManagement productsManagement = new ProductsManagement();
+                    productsManagement.Show();
+                    activeForm.Hide();
+                    activeForm = productsManagement;
+                    break;
+
                 default:
+                    Console.WriteLine("Cant find specified Form - " + form);
                     break;
             }
         }

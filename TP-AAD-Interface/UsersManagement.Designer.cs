@@ -33,6 +33,8 @@
             this.DOB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductsSold = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductsBought = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonMainMenu = new System.Windows.Forms.Button();
+            this.buttonRegisterUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tableUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,11 +71,31 @@
             this.ProductsBought.HeaderText = "Products Bought";
             this.ProductsBought.Name = "ProductsBought";
             // 
+            // buttonMainMenu
+            // 
+            this.buttonMainMenu.Location = new System.Drawing.Point(0, 0);
+            this.buttonMainMenu.Name = "buttonMainMenu";
+            this.buttonMainMenu.Size = new System.Drawing.Size(100, 35);
+            this.buttonMainMenu.TabIndex = 1;
+            this.buttonMainMenu.Text = "Main Menu";
+            this.buttonMainMenu.UseVisualStyleBackColor = true;
+            // 
+            // buttonRegisterUser
+            // 
+            this.buttonRegisterUser.Location = new System.Drawing.Point(0, 86);
+            this.buttonRegisterUser.Name = "buttonRegisterUser";
+            this.buttonRegisterUser.Size = new System.Drawing.Size(100, 35);
+            this.buttonRegisterUser.TabIndex = 1;
+            this.buttonRegisterUser.Text = "Register New User";
+            this.buttonRegisterUser.UseVisualStyleBackColor = true;
+            // 
             // UsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(695, 549);
+            this.Controls.Add(this.buttonRegisterUser);
+            this.Controls.Add(this.buttonMainMenu);
             this.Controls.Add(this.tableUsers);
             this.Name = "UsersManagement";
             this.Text = "UsersManagement";
@@ -89,5 +111,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DOB;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductsSold;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductsBought;
+        private System.Windows.Forms.Button buttonMainMenu;
+        private System.Windows.Forms.Button buttonRegisterUser;
     }
 }
