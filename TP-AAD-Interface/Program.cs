@@ -17,9 +17,8 @@ namespace TP_AAD_Interface
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Form1 form = new Form1();
-            MainMenu mainMenu = new MainMenu();
-            activeForm = mainMenu;
+            Form1 form = new Form1();
+            activeForm = form;
 
             Application.Run(activeForm);
             

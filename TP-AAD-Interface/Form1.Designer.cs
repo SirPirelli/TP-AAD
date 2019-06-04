@@ -33,7 +33,6 @@ namespace TP_AAD_Interface
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-          
             // 
             // button1
             // 
@@ -43,13 +42,14 @@ namespace TP_AAD_Interface
             this.button1.TabIndex = 4;
             this.button1.Text = "Sign In";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.SignIn);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(176, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 13);
+            this.label1.Size = new System.Drawing.Size(245, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Sign in SQL Server using Windows authentication.";
             // 
@@ -64,8 +64,6 @@ namespace TP_AAD_Interface
             this.Text = "Connection to server";
             this.ResumeLayout(false);
             this.PerformLayout();
-
-            button1.Click += new EventHandler(SignIn);
 
         }
 

@@ -13,6 +13,9 @@ namespace TP_AAD_Interface
 {
     public partial class Form1 : Form
     {
+
+        static public SqlConnection sqlConnection;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,21 +24,24 @@ namespace TP_AAD_Interface
         private void SignIn(object sender, EventArgs e)
         {
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            SqlConnection conn = new SqlConnection(connectionString);
+            
+            try
             {
                 conn.Open();
-
-                using (SqlCommand comm = new SqlCommand("Select * from Product", conn))
-                using (SqlDataReader reader = comm.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine(reader.GetString(1));
-                    }
-                }
+                sqlConnection = conn;
+                conn.Close();
+                    
             }
+            catch(Exception arg)
+            {
+                Console.WriteLine(arg.Message);
+                return;
+            }            
 
             Program.StartForm("MainMenu");
         }
+
+       
     }
 }

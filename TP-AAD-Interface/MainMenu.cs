@@ -16,79 +16,73 @@ namespace TP_AAD_Interface
         public MainMenu()
         {
             InitializeComponent();
-            labelNumAppProducts.Text = GetNumOfApprovedProducts().ToString();
-            labelNumOfUsers.Text = GetNumOfUsers().ToString();
-            labelNumRegisteredCountries.Text = GetNumOfRegisteredCountries().ToString();
+            labelNumAppProducts.Text = GetNumOfApprovedProducts(Form1.sqlConnection).ToString();
+            labelNumOfUsers.Text = GetNumOfUsers(Form1.sqlConnection).ToString();
+            labelNumRegisteredCountries.Text = GetNumOfRegisteredCountries(Form1.sqlConnection).ToString();
 
             buttonUsersManag.Click += new EventHandler(ButtonClickMainMenu);
             buttonProductsManag.Click += new EventHandler(ButtonClickMainMenu);
         }
 
-        int GetNumOfApprovedProducts()
+        int GetNumOfApprovedProducts(SqlConnection sqlConnection)
         {
+            int res = -1;
+            
+            sqlConnection.Open();
 
-            using (SqlConnection conn = new SqlConnection("Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
-                                            "Integrated Security=SSPI;"))
+            using (SqlCommand comm = new SqlCommand("Select Count(distinct ProductID) From Product", sqlConnection))
+            using (SqlDataReader reader = comm.ExecuteReader())
             {
-                conn.Open();
-                Console.WriteLine(conn.State);
-                Console.WriteLine(conn.ConnectionString);
-                using (SqlCommand comm = new SqlCommand("Select Count(distinct ProductID) From Product", conn))
-                using (SqlDataReader reader = comm.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        return reader.GetInt32(0);
-                    }
+                    res = reader.GetInt32(0);
                 }
-
-                return 99999;
             }
+
+            sqlConnection.Close();
+
+            return res;
         }
 
-        int GetNumOfUsers()
+        int GetNumOfUsers(SqlConnection sqlConnection)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
-                                            "Integrated Security=SSPI;"))
-            {
-                conn.Open();
-                Console.WriteLine(conn.State);
-                Console.WriteLine(conn.ConnectionString);
-                using (SqlCommand comm = new SqlCommand("Select Count(distinct Email) From [User]", conn))
-                using (SqlDataReader reader = comm.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        return reader.GetInt32(0);
-                    }
-                }
+            int res = -1;
 
-                return 99999;
+            sqlConnection.Open();
+
+            using (SqlCommand comm = new SqlCommand("Select Count(distinct Email) From [User]", sqlConnection))
+            using (SqlDataReader reader = comm.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res = reader.GetInt32(0);
+                }
             }
+
+            sqlConnection.Close();
+
+            return res;
         }
 
-        int GetNumOfRegisteredCountries()
+        int GetNumOfRegisteredCountries(SqlConnection sqlConnection)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
-                                            "Integrated Security=SSPI;"))
-            {
-                conn.Open();
-                Console.WriteLine(conn.State);
-                Console.WriteLine(conn.ConnectionString);
-                using (SqlCommand comm = new SqlCommand("Select Count(distinct Country) FROM PaymentData", conn))
-                using (SqlDataReader reader = comm.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        return reader.GetInt32(0);
-                    }
-                }
+            int res = -1;
 
-                return 99999;
+            sqlConnection.Open();
+            
+            using (SqlCommand comm = new SqlCommand("Select Count(distinct Country) FROM PaymentData", sqlConnection))
+            using (SqlDataReader reader = comm.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res = reader.GetInt32(0);
+                }
             }
+
+            sqlConnection.Close();
+
+            return res;
+            
         }
 
         private void ButtonClickMainMenu(object sender, EventArgs e)

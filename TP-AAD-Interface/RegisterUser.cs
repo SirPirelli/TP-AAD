@@ -41,12 +41,52 @@ namespace TP_AAD_Interface
             switch(button.Name)
             {
                 case "buttonSignUp":
-                    UserExists(textBoxUsername.Text.ToLower());
+
+                    if(!IsUsernameValid(textBoxUsername.Text))
+                    {
+                        break;
+                    }
+                    if(!IsPasswordValid(textBoxPassword.Text))
+                    {
+                        break;
+                    }
+                    if(!IsDateValid(dateTimeDOB.Value))
+                    {
+                        break;
+                    }
+                    
                     break;
             }
         }
 
-        private bool UserExists(string username)
+        private bool IsPasswordValid(string password)
+        {
+
+            char[,] valid = {   { (char)48, (char)57 }, 
+                                { (char)65, (char)90 }, 
+                                { (char)97, (char)122 }
+                                };
+            
+            foreach(char c in password)
+            {
+                for(int i = 0; i < valid.Length; i++)
+                {
+                    if (c < valid[i, 0] || c > valid[i, 1]) return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsDateValid(DateTime date)
+        {
+            DateTime lowerbound = DateTime.Today.AddYears(-18);
+            if (dateTimeDOB.Value > lowerbound) return false;
+
+            return true;
+        }
+
+        private bool IsUsernameValid(string username)
         {
 
             using (SqlConnection conn = new SqlConnection(Form1.connectionString))
@@ -57,24 +97,23 @@ namespace TP_AAD_Interface
                 using (SqlDataReader reader = comm.ExecuteReader())
                 {
 
-                    if(reader.Read())
+                    if (reader.Read())
                     {
                         Console.WriteLine(reader.GetString(0));
+                        return false;
                     }
                     else
                     {
                         Console.WriteLine("Didnt find same username");
+                        return true;
                     }
                 }
             }
-
-            return false;
         }
 
         private bool AddUserToDatabase(string username, string password, DateTime dob)
         {
-            DateTime lowerbound = DateTime.Today.AddYears(-18);
-            if (dateTimeDOB.Value > lowerbound) return false;
+            
 
             //using (SqlConnection conn = new SqlConnection(Form1.connectionString))
             //{
