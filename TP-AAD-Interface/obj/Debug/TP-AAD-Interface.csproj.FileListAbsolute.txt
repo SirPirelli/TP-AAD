@@ -24,3 +24,5 @@ C:\Users\jose_\Desktop\EDJD\2_Ano\2_Semestre\Armazenamento e Acesso a Dados\TP-A
 C:\Users\jose_\Desktop\EDJD\2_Ano\2_Semestre\Armazenamento e Acesso a Dados\TP-AAD-Interface\TP-AAD\TP-AAD-Interface\obj\Debug\TP-AAD-Interface.exe
 C:\Users\jose_\Desktop\EDJD\2_Ano\2_Semestre\Armazenamento e Acesso a Dados\TP-AAD-Interface\TP-AAD\TP-AAD-Interface\obj\Debug\TP-AAD-Interface.pdb
 C:\Users\jose_\Desktop\EDJD\2_Ano\2_Semestre\Armazenamento e Acesso a Dados\TP-AAD-Interface\TP-AAD\TP-AAD-Interface\obj\Debug\TP_AAD_Interface.RegisterUser.resources
+C:\Users\jose_\Desktop\EDJD\2_Ano\2_Semestre\Armazenamento e Acesso a Dados\TP-AAD-Interface\TP-AAD\TP-AAD-Interface\obj\Debug\TP_AAD_Interface.DeleteUserForm.resources
+C:\Users\jose_\Desktop\EDJD\2_Ano\2_Semestre\Armazenamento e Acesso a Dados\TP-AAD-Interface\TP-AAD\TP-AAD-Interface\obj\Debug\TP_AAD_Interface.UpdateUserInfoForm.resources

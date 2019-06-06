@@ -98,14 +98,14 @@
             // 
             // labelError
             // 
-            this.labelError.AutoSize = true;
             this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(245, 124);
+            this.labelError.Location = new System.Drawing.Point(41, 124);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(61, 13);
+            this.labelError.Size = new System.Drawing.Size(471, 13);
             this.labelError.TabIndex = 6;
             this.labelError.Text = "Default text";
-            labelError.Visible = false;
+            this.labelError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelError.Visible = false;
             // 
             // RegisterUser
             // 

@@ -12,9 +12,11 @@ using System.Windows.Forms;
 
 namespace TP_AAD_Interface
 {
+    enum ERRORS { EMAIL, PASSWORD, DATE };
+
+
     public partial class RegisterUser : Form
     {
-        enum ERRORS { EMAIL, PASSWORD, DATE};
 
         public RegisterUser(Form ownerForm)
         {
@@ -23,14 +25,17 @@ namespace TP_AAD_Interface
             InitializeComponent();
 
             buttonSignUp.Click += new EventHandler(OnButtonClick);
-            this.FormClosing += new FormClosingEventHandler(OnFormClosing);
             
         }
 
-        private void OnFormClosing(object sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            base.OnFormClosing(e);
+
             this.Owner.Enabled = true;
-            
+
+            UsersManagement usersManagement = this.Owner as UsersManagement;
+            usersManagement.UpdateForm();
         }
 
 
@@ -42,118 +47,76 @@ namespace TP_AAD_Interface
             {
                 case "buttonSignUp":
 
-                    if(!IsUsernameValid(textBoxUsername.Text))
-                    {
-                        break;
-                    }
-                    if(!IsPasswordValid(textBoxPassword.Text))
-                    {
-                        break;
-                    }
-                    if(!IsDateValid(dateTimeDOB.Value))
-                    {
-                        break;
-                    }
-                    
-                    break;
-            }
-        }
-
-        private bool IsPasswordValid(string password)
-        {
-
-            char[,] valid = {   { (char)48, (char)57 }, 
-                                { (char)65, (char)90 }, 
-                                { (char)97, (char)122 }
-                                };
-            
-            foreach(char c in password)
-            {
-                for(int i = 0; i < valid.Length; i++)
+                if (!RegistrationUtility.IsUsernameValid(textBoxUsername.Text, Form1.sqlConnection))
                 {
-                    if (c < valid[i, 0] || c > valid[i, 1]) return false;
+                    RegistrationUtility.OnRegisterError(ERRORS.EMAIL, labelError);
+                    break;
                 }
-            }
-
-            return true;
-        }
-
-        private bool IsDateValid(DateTime date)
-        {
-            DateTime lowerbound = DateTime.Today.AddYears(-18);
-            if (dateTimeDOB.Value > lowerbound) return false;
-
-            return true;
-        }
-
-        private bool IsUsernameValid(string username)
-        {
-
-            using (SqlConnection conn = new SqlConnection(Form1.connectionString))
-            {
-                conn.Open();
-
-                using (SqlCommand comm = new SqlCommand("Select * from [User] Where Email = '" + username + "'", conn))
-                using (SqlDataReader reader = comm.ExecuteReader())
+                if (!RegistrationUtility.IsPasswordValid(textBoxPassword.Text))
                 {
-
-                    if (reader.Read())
-                    {
-                        Console.WriteLine(reader.GetString(0));
-                        return false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Didnt find same username");
-                        return true;
-                    }
+                        RegistrationUtility.OnRegisterError(ERRORS.PASSWORD, labelError);
+                    break;
                 }
+                    //if (!RegistrationUtility.IsDateValid(dateTimeDOB.Value, labelError))
+                    //{
+                    //    OnRegisterError(ERRORS.DATE);
+                    //    break;
+                    //}
+
+                    //Insert new user into database
+                if (AddUserToDatabase(textBoxUsername.Text, textBoxPassword.Text, dateTimeDOB.Value, Form1.sqlConnection))
+                {
+                    labelError.Visible = true;
+                    labelError.ForeColor = Color.Green;
+                    labelError.Text = "User added with success.";
+                }
+
+                break;
             }
         }
 
-        private bool AddUserToDatabase(string username, string password, DateTime dob)
-        {
-            
-
-            //using (SqlConnection conn = new SqlConnection(Form1.connectionString))
-            //{
-            //    conn.Open();
-
-            //    using (SqlCommand comm = new SqlCommand("INSERT INTO[User]([Email], [DOB], [Password], [ProductsSold], [ProductsBought], [FundsAvailable],[PointsAvailable]) VALUES('" + username + "', CAST(N'1988-06-03' AS Date), '" + password + "', 7, 0, 0, 0)", conn))
-            //    using (SqlDataReader reader = comm.ExecuteReader())
-            //    {
-            //        if (reader.Read())
-            //        {
-            //            Console.WriteLine(reader.GetString(0));
-            //        }
-            //        else
-            //        {
-            //            Console.WriteLine("Didnt find same username");
-            //        }
-            //    }
-            //}
-
-            return false;
-        }
-
-        private void OnRegisterError(ERRORS error)
-        {
-
-            labelError.Visible = true;
-
-            switch(error)
-            {
-                case ERRORS.DATE:
-                    break;
-
-                case ERRORS.EMAIL:
-                    break;
-
-                case ERRORS.PASSWORD:
-                    break;
-            }
-
-        }
         
+
+
+        private bool AddUserToDatabase(string username, string password, DateTime dob, SqlConnection sqlConnection)
+        {
+            
+            try
+            {
+                sqlConnection.Open();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Cant add user to database. " + e.Message);
+                return false;
+            }
+
+            string date = dob.Year + "-" + dob.Month + "-" + dob.Day;
+
+            SqlCommand cmd = new SqlCommand("AddUser", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = username; ;
+            cmd.Parameters.AddWithValue("@Password", SqlDbType.Char).Value = password; ;
+            cmd.Parameters.AddWithValue("@DOB", SqlDbType.Date).Value = date;
+
+            if(cmd.ExecuteNonQuery() > 0)
+            {
+                MessageBox.Show("Command executed successfully.");
+                sqlConnection.Close();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Failed to execute commmand.");
+                sqlConnection.Close();
+                return false;
+
+            }
+
+        }  
+
+        
+
+
     }
 }
