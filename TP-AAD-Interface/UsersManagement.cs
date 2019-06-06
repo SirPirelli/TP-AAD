@@ -60,7 +60,7 @@ namespace TP_AAD_Interface
                 {
                     while (reader.Read())
                     {
-                        string[] newRow = {reader.GetString(0), reader.GetDateTime(1).Date.ToString(),
+                        string[] newRow = {reader.GetString(0), reader.GetDateTime(1).Date.ToShortDateString(),
                                             reader.GetInt32(3).ToString(), reader.GetInt32(4).ToString()};
 
                         tableUsers.Rows.Add(newRow);
