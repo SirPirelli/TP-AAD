@@ -28,7 +28,7 @@ namespace TP_AAD_Interface
         {
 
             using (SqlConnection conn = new SqlConnection("Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
+                                            "Initial Catalog=MyFirstDataBase;" +
                                             "Integrated Security=SSPI;"))
             {
                 conn.Open();
@@ -50,7 +50,7 @@ namespace TP_AAD_Interface
         int GetNumOfUsers()
         {
             using (SqlConnection conn = new SqlConnection("Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
+                                            "Initial Catalog=MyFirstDataBase;" +
                                             "Integrated Security=SSPI;"))
             {
                 conn.Open();
@@ -72,7 +72,7 @@ namespace TP_AAD_Interface
         int GetNumOfRegisteredCountries()
         {
             using (SqlConnection conn = new SqlConnection("Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
+                                            "Initial Catalog=MyFirstDataBase;" +
                                             "Integrated Security=SSPI;"))
             {
                 conn.Open();

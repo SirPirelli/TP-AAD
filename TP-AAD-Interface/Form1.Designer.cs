@@ -76,7 +76,7 @@ namespace TP_AAD_Interface
 
 
         public static string connectionString = "Data Source= (local);" +
-                                            "Initial Catalog=TP-AAD;" +
+                                            "Initial Catalog=MyFirstDataBase;" +
                                             "Integrated Security=SSPI;";
 
     }
